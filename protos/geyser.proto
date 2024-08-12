@@ -137,8 +137,8 @@ message SubscribeUpdateTransaction {
 message SubscribeUpdateTransactionInfo {
   bytes signature = 1;
   bool is_vote = 2;
-  solana.storage.ConfirmedBlock.Transaction transaction = 3;
-  solana.storage.ConfirmedBlock.TransactionStatusMeta meta = 4;
+  solana.storage.GeyserConfirmedBlock.Transaction transaction = 3;
+  solana.storage.GeyserConfirmedBlock.TransactionStatusMeta meta = 4;
   uint64 index = 5;
 }
 
@@ -147,15 +147,15 @@ message SubscribeUpdateTransactionStatus {
   bytes signature = 2;
   bool is_vote = 3;
   uint64 index = 4;
-  solana.storage.ConfirmedBlock.TransactionError err = 5;
+  solana.storage.GeyserConfirmedBlock.TransactionError err = 5;
 }
 
 message SubscribeUpdateBlock {
   uint64 slot = 1;
   string blockhash = 2;
-  solana.storage.ConfirmedBlock.GeyserRewards rewards = 3;
-  solana.storage.ConfirmedBlock.UnixTimestamp block_time = 4;
-  solana.storage.ConfirmedBlock.BlockHeight block_height = 5;
+  solana.storage.GeyserConfirmedBlock.GeyserRewards rewards = 3;
+  solana.storage.GeyserConfirmedBlock.UnixTimestamp block_time = 4;
+  solana.storage.GeyserConfirmedBlock.BlockHeight block_height = 5;
   uint64 parent_slot = 7;
   string parent_blockhash = 8;
   uint64 executed_transaction_count = 9;
@@ -169,9 +169,9 @@ message SubscribeUpdateBlock {
 message SubscribeUpdateBlockMeta {
   uint64 slot = 1;
   string blockhash = 2;
-  solana.storage.ConfirmedBlock.GeyserRewards rewards = 3;
-  solana.storage.ConfirmedBlock.UnixTimestamp block_time = 4;
-  solana.storage.ConfirmedBlock.BlockHeight block_height = 5;
+  solana.storage.GeyserConfirmedBlock.GeyserRewards rewards = 3;
+  solana.storage.GeyserConfirmedBlock.UnixTimestamp block_time = 4;
+  solana.storage.GeyserConfirmedBlock.BlockHeight block_height = 5;
   uint64 parent_slot = 6;
   string parent_blockhash = 7;
   uint64 executed_transaction_count = 8;

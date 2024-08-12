@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package solana.storage.ConfirmedBlock;
+package solana.storage.GeyserConfirmedBlock;
 
 option go_package = "github.com/iqbalbaharum/solana-protos/pb";
 
-message ConfirmedBlock {
+message GeyserConfirmedBlock {
     string previous_blockhash = 1;
     string blockhash = 2;
     uint64 parent_slot = 3;
