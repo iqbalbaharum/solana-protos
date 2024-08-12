@@ -1,4 +1,4 @@
-module iqbalbaharum/solana-protos
+module github.com/iqbalbaharum/solana-protos
 
 go 1.22.5
 
