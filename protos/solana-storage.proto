@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package solana.storage.ConfirmedBlock;
 
-option go_package = "github.com/iqbalbaharum/sol-protos/pb";
+option go_package = "github.com/iqbalbaharum/solana-protos/pb";
 
 message ConfirmedBlock {
     string previous_blockhash = 1;
