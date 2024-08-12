@@ -1,4 +1,4 @@
-module iqbalbaharum/sol-protos
+module iqbalbaharum/solana-protos
 
 go 1.22.5
 
