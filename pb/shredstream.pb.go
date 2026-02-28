@@ -22,7 +22,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type Socket struct {
+type JitoSocket struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Ip            string                 `protobuf:"bytes,1,opt,name=ip,proto3" json:"ip,omitempty"`
 	Port          int64                  `protobuf:"varint,2,opt,name=port,proto3" json:"port,omitempty"`
@@ -30,20 +30,20 @@ type Socket struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Socket) Reset() {
-	*x = Socket{}
+func (x *JitoSocket) Reset() {
+	*x = JitoSocket{}
 	mi := &file_shredstream_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *Socket) String() string {
+func (x *JitoSocket) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Socket) ProtoMessage() {}
+func (*JitoSocket) ProtoMessage() {}
 
-func (x *Socket) ProtoReflect() protoreflect.Message {
+func (x *JitoSocket) ProtoReflect() protoreflect.Message {
 	mi := &file_shredstream_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -55,30 +55,30 @@ func (x *Socket) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Socket.ProtoReflect.Descriptor instead.
-func (*Socket) Descriptor() ([]byte, []int) {
+// Deprecated: Use JitoSocket.ProtoReflect.Descriptor instead.
+func (*JitoSocket) Descriptor() ([]byte, []int) {
 	return file_shredstream_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Socket) GetIp() string {
+func (x *JitoSocket) GetIp() string {
 	if x != nil {
 		return x.Ip
 	}
 	return ""
 }
 
-func (x *Socket) GetPort() int64 {
+func (x *JitoSocket) GetPort() int64 {
 	if x != nil {
 		return x.Port
 	}
 	return 0
 }
 
-type Heartbeat struct {
+type JitoHeartbeat struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// don't trust IP:PORT from tcp header since it can be tampered over the wire
 	// `socket.ip` must match incoming packet's ip. this prevents spamming an unwitting destination
-	Socket *Socket `protobuf:"bytes,1,opt,name=socket,proto3" json:"socket,omitempty"`
+	Socket *JitoSocket `protobuf:"bytes,1,opt,name=socket,proto3" json:"socket,omitempty"`
 	// regions for shredstream proxy to receive shreds from
 	// list of valid regions: https://docs.jito.wtf/lowlatencytxnsend/#api
 	Regions       []string `protobuf:"bytes,2,rep,name=regions,proto3" json:"regions,omitempty"`
@@ -86,20 +86,20 @@ type Heartbeat struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Heartbeat) Reset() {
-	*x = Heartbeat{}
+func (x *JitoHeartbeat) Reset() {
+	*x = JitoHeartbeat{}
 	mi := &file_shredstream_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *Heartbeat) String() string {
+func (x *JitoHeartbeat) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Heartbeat) ProtoMessage() {}
+func (*JitoHeartbeat) ProtoMessage() {}
 
-func (x *Heartbeat) ProtoReflect() protoreflect.Message {
+func (x *JitoHeartbeat) ProtoReflect() protoreflect.Message {
 	mi := &file_shredstream_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -111,26 +111,26 @@ func (x *Heartbeat) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Heartbeat.ProtoReflect.Descriptor instead.
-func (*Heartbeat) Descriptor() ([]byte, []int) {
+// Deprecated: Use JitoHeartbeat.ProtoReflect.Descriptor instead.
+func (*JitoHeartbeat) Descriptor() ([]byte, []int) {
 	return file_shredstream_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *Heartbeat) GetSocket() *Socket {
+func (x *JitoHeartbeat) GetSocket() *JitoSocket {
 	if x != nil {
 		return x.Socket
 	}
 	return nil
 }
 
-func (x *Heartbeat) GetRegions() []string {
+func (x *JitoHeartbeat) GetRegions() []string {
 	if x != nil {
 		return x.Regions
 	}
 	return nil
 }
 
-type HeartbeatResponse struct {
+type JitoHeartbeatResponse struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// client must respond within `ttl_ms` to keep stream alive
 	TtlMs         uint32 `protobuf:"varint,1,opt,name=ttl_ms,json=ttlMs,proto3" json:"ttl_ms,omitempty"`
@@ -138,20 +138,20 @@ type HeartbeatResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *HeartbeatResponse) Reset() {
-	*x = HeartbeatResponse{}
+func (x *JitoHeartbeatResponse) Reset() {
+	*x = JitoHeartbeatResponse{}
 	mi := &file_shredstream_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *HeartbeatResponse) String() string {
+func (x *JitoHeartbeatResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*HeartbeatResponse) ProtoMessage() {}
+func (*JitoHeartbeatResponse) ProtoMessage() {}
 
-func (x *HeartbeatResponse) ProtoReflect() protoreflect.Message {
+func (x *JitoHeartbeatResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_shredstream_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -163,19 +163,19 @@ func (x *HeartbeatResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use HeartbeatResponse.ProtoReflect.Descriptor instead.
-func (*HeartbeatResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use JitoHeartbeatResponse.ProtoReflect.Descriptor instead.
+func (*JitoHeartbeatResponse) Descriptor() ([]byte, []int) {
 	return file_shredstream_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *HeartbeatResponse) GetTtlMs() uint32 {
+func (x *JitoHeartbeatResponse) GetTtlMs() uint32 {
 	if x != nil {
 		return x.TtlMs
 	}
 	return 0
 }
 
-type TraceShred struct {
+type JitoTraceShred struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// source region, one of: https://docs.jito.wtf/lowlatencytxnsend/#api
 	Region string `protobuf:"bytes,1,opt,name=region,proto3" json:"region,omitempty"`
@@ -187,20 +187,20 @@ type TraceShred struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *TraceShred) Reset() {
-	*x = TraceShred{}
+func (x *JitoTraceShred) Reset() {
+	*x = JitoTraceShred{}
 	mi := &file_shredstream_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *TraceShred) String() string {
+func (x *JitoTraceShred) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*TraceShred) ProtoMessage() {}
+func (*JitoTraceShred) ProtoMessage() {}
 
-func (x *TraceShred) ProtoReflect() protoreflect.Message {
+func (x *JitoTraceShred) ProtoReflect() protoreflect.Message {
 	mi := &file_shredstream_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -212,52 +212,52 @@ func (x *TraceShred) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use TraceShred.ProtoReflect.Descriptor instead.
-func (*TraceShred) Descriptor() ([]byte, []int) {
+// Deprecated: Use JitoTraceShred.ProtoReflect.Descriptor instead.
+func (*JitoTraceShred) Descriptor() ([]byte, []int) {
 	return file_shredstream_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *TraceShred) GetRegion() string {
+func (x *JitoTraceShred) GetRegion() string {
 	if x != nil {
 		return x.Region
 	}
 	return ""
 }
 
-func (x *TraceShred) GetCreatedAt() *timestamppb.Timestamp {
+func (x *JitoTraceShred) GetCreatedAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.CreatedAt
 	}
 	return nil
 }
 
-func (x *TraceShred) GetSeqNum() uint32 {
+func (x *JitoTraceShred) GetSeqNum() uint32 {
 	if x != nil {
 		return x.SeqNum
 	}
 	return 0
 }
 
-type SubscribeEntriesRequest struct {
+type JitoSubscribeEntriesRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *SubscribeEntriesRequest) Reset() {
-	*x = SubscribeEntriesRequest{}
+func (x *JitoSubscribeEntriesRequest) Reset() {
+	*x = JitoSubscribeEntriesRequest{}
 	mi := &file_shredstream_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *SubscribeEntriesRequest) String() string {
+func (x *JitoSubscribeEntriesRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*SubscribeEntriesRequest) ProtoMessage() {}
+func (*JitoSubscribeEntriesRequest) ProtoMessage() {}
 
-func (x *SubscribeEntriesRequest) ProtoReflect() protoreflect.Message {
+func (x *JitoSubscribeEntriesRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_shredstream_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -269,12 +269,12 @@ func (x *SubscribeEntriesRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use SubscribeEntriesRequest.ProtoReflect.Descriptor instead.
-func (*SubscribeEntriesRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use JitoSubscribeEntriesRequest.ProtoReflect.Descriptor instead.
+func (*JitoSubscribeEntriesRequest) Descriptor() ([]byte, []int) {
 	return file_shredstream_proto_rawDescGZIP(), []int{4}
 }
 
-type Entry struct {
+type JitoEntry struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// the slot that the entry is from
 	Slot uint64 `protobuf:"varint,1,opt,name=slot,proto3" json:"slot,omitempty"`
@@ -284,20 +284,20 @@ type Entry struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Entry) Reset() {
-	*x = Entry{}
+func (x *JitoEntry) Reset() {
+	*x = JitoEntry{}
 	mi := &file_shredstream_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *Entry) String() string {
+func (x *JitoEntry) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Entry) ProtoMessage() {}
+func (*JitoEntry) ProtoMessage() {}
 
-func (x *Entry) ProtoReflect() protoreflect.Message {
+func (x *JitoEntry) ProtoReflect() protoreflect.Message {
 	mi := &file_shredstream_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -309,19 +309,19 @@ func (x *Entry) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Entry.ProtoReflect.Descriptor instead.
-func (*Entry) Descriptor() ([]byte, []int) {
+// Deprecated: Use JitoEntry.ProtoReflect.Descriptor instead.
+func (*JitoEntry) Descriptor() ([]byte, []int) {
 	return file_shredstream_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *Entry) GetSlot() uint64 {
+func (x *JitoEntry) GetSlot() uint64 {
 	if x != nil {
 		return x.Slot
 	}
 	return 0
 }
 
-func (x *Entry) GetEntries() []byte {
+func (x *JitoEntry) GetEntries() []byte {
 	if x != nil {
 		return x.Entries
 	}
@@ -332,29 +332,29 @@ var File_shredstream_proto protoreflect.FileDescriptor
 
 const file_shredstream_proto_rawDesc = "" +
 	"\n" +
-	"\x11shredstream.proto\x12\vshredstream\x1a\x1fgoogle/protobuf/timestamp.proto\",\n" +
-	"\x06Socket\x12\x0e\n" +
-	"\x02ip\x18\x01 \x01(\tR\x02ip\x12\x12\n" +
-	"\x04port\x18\x02 \x01(\x03R\x04port\"R\n" +
-	"\tHeartbeat\x12+\n" +
-	"\x06socket\x18\x01 \x01(\v2\x13.shredstream.SocketR\x06socket\x12\x18\n" +
-	"\aregions\x18\x02 \x03(\tR\aregions\"*\n" +
-	"\x11HeartbeatResponse\x12\x15\n" +
-	"\x06ttl_ms\x18\x01 \x01(\rR\x05ttlMs\"x\n" +
+	"\x11shredstream.proto\x12\x0fjitoshredstream\x1a\x1fgoogle/protobuf/timestamp.proto\"0\n" +
 	"\n" +
-	"TraceShred\x12\x16\n" +
+	"JitoSocket\x12\x0e\n" +
+	"\x02ip\x18\x01 \x01(\tR\x02ip\x12\x12\n" +
+	"\x04port\x18\x02 \x01(\x03R\x04port\"^\n" +
+	"\rJitoHeartbeat\x123\n" +
+	"\x06socket\x18\x01 \x01(\v2\x1b.jitoshredstream.JitoSocketR\x06socket\x12\x18\n" +
+	"\aregions\x18\x02 \x03(\tR\aregions\".\n" +
+	"\x15JitoHeartbeatResponse\x12\x15\n" +
+	"\x06ttl_ms\x18\x01 \x01(\rR\x05ttlMs\"|\n" +
+	"\x0eJitoTraceShred\x12\x16\n" +
 	"\x06region\x18\x01 \x01(\tR\x06region\x129\n" +
 	"\n" +
 	"created_at\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x12\x17\n" +
-	"\aseq_num\x18\x03 \x01(\rR\x06seqNum\"\x19\n" +
-	"\x17SubscribeEntriesRequest\"5\n" +
-	"\x05Entry\x12\x12\n" +
+	"\aseq_num\x18\x03 \x01(\rR\x06seqNum\"\x1d\n" +
+	"\x1bJitoSubscribeEntriesRequest\"9\n" +
+	"\tJitoEntry\x12\x12\n" +
 	"\x04slot\x18\x01 \x01(\x04R\x04slot\x12\x18\n" +
-	"\aentries\x18\x02 \x01(\fR\aentries2X\n" +
-	"\vShredstream\x12I\n" +
-	"\rSendHeartbeat\x12\x16.shredstream.Heartbeat\x1a\x1e.shredstream.HeartbeatResponse\"\x002b\n" +
-	"\x10ShredstreamProxy\x12N\n" +
-	"\x10SubscribeEntries\x12$.shredstream.SubscribeEntriesRequest\x1a\x12.shredstream.Entry0\x01B\x11Z\x0f/shredstream/pbb\x06proto3"
+	"\aentries\x18\x02 \x01(\fR\aentries2l\n" +
+	"\x0fJitoShredstream\x12Y\n" +
+	"\rSendHeartbeat\x12\x1e.jitoshredstream.JitoHeartbeat\x1a&.jitoshredstream.JitoHeartbeatResponse\"\x002v\n" +
+	"\x14JitoShredstreamProxy\x12^\n" +
+	"\x10SubscribeEntries\x12,.jitoshredstream.JitoSubscribeEntriesRequest\x1a\x1a.jitoshredstream.JitoEntry0\x01B\x15Z\x13/jitoshredstream/pbb\x06proto3"
 
 var (
 	file_shredstream_proto_rawDescOnce sync.Once
@@ -370,21 +370,21 @@ func file_shredstream_proto_rawDescGZIP() []byte {
 
 var file_shredstream_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_shredstream_proto_goTypes = []any{
-	(*Socket)(nil),                  // 0: shredstream.Socket
-	(*Heartbeat)(nil),               // 1: shredstream.Heartbeat
-	(*HeartbeatResponse)(nil),       // 2: shredstream.HeartbeatResponse
-	(*TraceShred)(nil),              // 3: shredstream.TraceShred
-	(*SubscribeEntriesRequest)(nil), // 4: shredstream.SubscribeEntriesRequest
-	(*Entry)(nil),                   // 5: shredstream.Entry
-	(*timestamppb.Timestamp)(nil),   // 6: google.protobuf.Timestamp
+	(*JitoSocket)(nil),                  // 0: jitoshredstream.JitoSocket
+	(*JitoHeartbeat)(nil),               // 1: jitoshredstream.JitoHeartbeat
+	(*JitoHeartbeatResponse)(nil),       // 2: jitoshredstream.JitoHeartbeatResponse
+	(*JitoTraceShred)(nil),              // 3: jitoshredstream.JitoTraceShred
+	(*JitoSubscribeEntriesRequest)(nil), // 4: jitoshredstream.JitoSubscribeEntriesRequest
+	(*JitoEntry)(nil),                   // 5: jitoshredstream.JitoEntry
+	(*timestamppb.Timestamp)(nil),       // 6: google.protobuf.Timestamp
 }
 var file_shredstream_proto_depIdxs = []int32{
-	0, // 0: shredstream.Heartbeat.socket:type_name -> shredstream.Socket
-	6, // 1: shredstream.TraceShred.created_at:type_name -> google.protobuf.Timestamp
-	1, // 2: shredstream.Shredstream.SendHeartbeat:input_type -> shredstream.Heartbeat
-	4, // 3: shredstream.ShredstreamProxy.SubscribeEntries:input_type -> shredstream.SubscribeEntriesRequest
-	2, // 4: shredstream.Shredstream.SendHeartbeat:output_type -> shredstream.HeartbeatResponse
-	5, // 5: shredstream.ShredstreamProxy.SubscribeEntries:output_type -> shredstream.Entry
+	0, // 0: jitoshredstream.JitoHeartbeat.socket:type_name -> jitoshredstream.JitoSocket
+	6, // 1: jitoshredstream.JitoTraceShred.created_at:type_name -> google.protobuf.Timestamp
+	1, // 2: jitoshredstream.JitoShredstream.SendHeartbeat:input_type -> jitoshredstream.JitoHeartbeat
+	4, // 3: jitoshredstream.JitoShredstreamProxy.SubscribeEntries:input_type -> jitoshredstream.JitoSubscribeEntriesRequest
+	2, // 4: jitoshredstream.JitoShredstream.SendHeartbeat:output_type -> jitoshredstream.JitoHeartbeatResponse
+	5, // 5: jitoshredstream.JitoShredstreamProxy.SubscribeEntries:output_type -> jitoshredstream.JitoEntry
 	4, // [4:6] is the sub-list for method output_type
 	2, // [2:4] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name

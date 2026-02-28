@@ -19,103 +19,103 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Shredstream_SendHeartbeat_FullMethodName = "/shredstream.Shredstream/SendHeartbeat"
+	JitoShredstream_SendHeartbeat_FullMethodName = "/jitoshredstream.JitoShredstream/SendHeartbeat"
 )
 
-// ShredstreamClient is the client API for Shredstream service.
+// JitoShredstreamClient is the client API for JitoShredstream service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type ShredstreamClient interface {
+type JitoShredstreamClient interface {
 	// RPC endpoint to send heartbeats to keep shreds flowing
-	SendHeartbeat(ctx context.Context, in *Heartbeat, opts ...grpc.CallOption) (*HeartbeatResponse, error)
+	SendHeartbeat(ctx context.Context, in *JitoHeartbeat, opts ...grpc.CallOption) (*JitoHeartbeatResponse, error)
 }
 
-type shredstreamClient struct {
+type jitoShredstreamClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewShredstreamClient(cc grpc.ClientConnInterface) ShredstreamClient {
-	return &shredstreamClient{cc}
+func NewJitoShredstreamClient(cc grpc.ClientConnInterface) JitoShredstreamClient {
+	return &jitoShredstreamClient{cc}
 }
 
-func (c *shredstreamClient) SendHeartbeat(ctx context.Context, in *Heartbeat, opts ...grpc.CallOption) (*HeartbeatResponse, error) {
+func (c *jitoShredstreamClient) SendHeartbeat(ctx context.Context, in *JitoHeartbeat, opts ...grpc.CallOption) (*JitoHeartbeatResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(HeartbeatResponse)
-	err := c.cc.Invoke(ctx, Shredstream_SendHeartbeat_FullMethodName, in, out, cOpts...)
+	out := new(JitoHeartbeatResponse)
+	err := c.cc.Invoke(ctx, JitoShredstream_SendHeartbeat_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// ShredstreamServer is the server API for Shredstream service.
-// All implementations must embed UnimplementedShredstreamServer
+// JitoShredstreamServer is the server API for JitoShredstream service.
+// All implementations must embed UnimplementedJitoShredstreamServer
 // for forward compatibility.
-type ShredstreamServer interface {
+type JitoShredstreamServer interface {
 	// RPC endpoint to send heartbeats to keep shreds flowing
-	SendHeartbeat(context.Context, *Heartbeat) (*HeartbeatResponse, error)
-	mustEmbedUnimplementedShredstreamServer()
+	SendHeartbeat(context.Context, *JitoHeartbeat) (*JitoHeartbeatResponse, error)
+	mustEmbedUnimplementedJitoShredstreamServer()
 }
 
-// UnimplementedShredstreamServer must be embedded to have
+// UnimplementedJitoShredstreamServer must be embedded to have
 // forward compatible implementations.
 //
 // NOTE: this should be embedded by value instead of pointer to avoid a nil
 // pointer dereference when methods are called.
-type UnimplementedShredstreamServer struct{}
+type UnimplementedJitoShredstreamServer struct{}
 
-func (UnimplementedShredstreamServer) SendHeartbeat(context.Context, *Heartbeat) (*HeartbeatResponse, error) {
+func (UnimplementedJitoShredstreamServer) SendHeartbeat(context.Context, *JitoHeartbeat) (*JitoHeartbeatResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method SendHeartbeat not implemented")
 }
-func (UnimplementedShredstreamServer) mustEmbedUnimplementedShredstreamServer() {}
-func (UnimplementedShredstreamServer) testEmbeddedByValue()                     {}
+func (UnimplementedJitoShredstreamServer) mustEmbedUnimplementedJitoShredstreamServer() {}
+func (UnimplementedJitoShredstreamServer) testEmbeddedByValue()                         {}
 
-// UnsafeShredstreamServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ShredstreamServer will
+// UnsafeJitoShredstreamServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to JitoShredstreamServer will
 // result in compilation errors.
-type UnsafeShredstreamServer interface {
-	mustEmbedUnimplementedShredstreamServer()
+type UnsafeJitoShredstreamServer interface {
+	mustEmbedUnimplementedJitoShredstreamServer()
 }
 
-func RegisterShredstreamServer(s grpc.ServiceRegistrar, srv ShredstreamServer) {
-	// If the following call panics, it indicates UnimplementedShredstreamServer was
+func RegisterJitoShredstreamServer(s grpc.ServiceRegistrar, srv JitoShredstreamServer) {
+	// If the following call panics, it indicates UnimplementedJitoShredstreamServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
 	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
 		t.testEmbeddedByValue()
 	}
-	s.RegisterService(&Shredstream_ServiceDesc, srv)
+	s.RegisterService(&JitoShredstream_ServiceDesc, srv)
 }
 
-func _Shredstream_SendHeartbeat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Heartbeat)
+func _JitoShredstream_SendHeartbeat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(JitoHeartbeat)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ShredstreamServer).SendHeartbeat(ctx, in)
+		return srv.(JitoShredstreamServer).SendHeartbeat(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Shredstream_SendHeartbeat_FullMethodName,
+		FullMethod: JitoShredstream_SendHeartbeat_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShredstreamServer).SendHeartbeat(ctx, req.(*Heartbeat))
+		return srv.(JitoShredstreamServer).SendHeartbeat(ctx, req.(*JitoHeartbeat))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Shredstream_ServiceDesc is the grpc.ServiceDesc for Shredstream service.
+// JitoShredstream_ServiceDesc is the grpc.ServiceDesc for JitoShredstream service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Shredstream_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "shredstream.Shredstream",
-	HandlerType: (*ShredstreamServer)(nil),
+var JitoShredstream_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "jitoshredstream.JitoShredstream",
+	HandlerType: (*JitoShredstreamServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "SendHeartbeat",
-			Handler:    _Shredstream_SendHeartbeat_Handler,
+			Handler:    _JitoShredstream_SendHeartbeat_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -123,31 +123,31 @@ var Shredstream_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	ShredstreamProxy_SubscribeEntries_FullMethodName = "/shredstream.ShredstreamProxy/SubscribeEntries"
+	JitoShredstreamProxy_SubscribeEntries_FullMethodName = "/jitoshredstream.JitoShredstreamProxy/SubscribeEntries"
 )
 
-// ShredstreamProxyClient is the client API for ShredstreamProxy service.
+// JitoShredstreamProxyClient is the client API for JitoShredstreamProxy service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type ShredstreamProxyClient interface {
-	SubscribeEntries(ctx context.Context, in *SubscribeEntriesRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Entry], error)
+type JitoShredstreamProxyClient interface {
+	SubscribeEntries(ctx context.Context, in *JitoSubscribeEntriesRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[JitoEntry], error)
 }
 
-type shredstreamProxyClient struct {
+type jitoShredstreamProxyClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewShredstreamProxyClient(cc grpc.ClientConnInterface) ShredstreamProxyClient {
-	return &shredstreamProxyClient{cc}
+func NewJitoShredstreamProxyClient(cc grpc.ClientConnInterface) JitoShredstreamProxyClient {
+	return &jitoShredstreamProxyClient{cc}
 }
 
-func (c *shredstreamProxyClient) SubscribeEntries(ctx context.Context, in *SubscribeEntriesRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Entry], error) {
+func (c *jitoShredstreamProxyClient) SubscribeEntries(ctx context.Context, in *JitoSubscribeEntriesRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[JitoEntry], error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	stream, err := c.cc.NewStream(ctx, &ShredstreamProxy_ServiceDesc.Streams[0], ShredstreamProxy_SubscribeEntries_FullMethodName, cOpts...)
+	stream, err := c.cc.NewStream(ctx, &JitoShredstreamProxy_ServiceDesc.Streams[0], JitoShredstreamProxy_SubscribeEntries_FullMethodName, cOpts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &grpc.GenericClientStream[SubscribeEntriesRequest, Entry]{ClientStream: stream}
+	x := &grpc.GenericClientStream[JitoSubscribeEntriesRequest, JitoEntry]{ClientStream: stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -158,69 +158,69 @@ func (c *shredstreamProxyClient) SubscribeEntries(ctx context.Context, in *Subsc
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type ShredstreamProxy_SubscribeEntriesClient = grpc.ServerStreamingClient[Entry]
+type JitoShredstreamProxy_SubscribeEntriesClient = grpc.ServerStreamingClient[JitoEntry]
 
-// ShredstreamProxyServer is the server API for ShredstreamProxy service.
-// All implementations must embed UnimplementedShredstreamProxyServer
+// JitoShredstreamProxyServer is the server API for JitoShredstreamProxy service.
+// All implementations must embed UnimplementedJitoShredstreamProxyServer
 // for forward compatibility.
-type ShredstreamProxyServer interface {
-	SubscribeEntries(*SubscribeEntriesRequest, grpc.ServerStreamingServer[Entry]) error
-	mustEmbedUnimplementedShredstreamProxyServer()
+type JitoShredstreamProxyServer interface {
+	SubscribeEntries(*JitoSubscribeEntriesRequest, grpc.ServerStreamingServer[JitoEntry]) error
+	mustEmbedUnimplementedJitoShredstreamProxyServer()
 }
 
-// UnimplementedShredstreamProxyServer must be embedded to have
+// UnimplementedJitoShredstreamProxyServer must be embedded to have
 // forward compatible implementations.
 //
 // NOTE: this should be embedded by value instead of pointer to avoid a nil
 // pointer dereference when methods are called.
-type UnimplementedShredstreamProxyServer struct{}
+type UnimplementedJitoShredstreamProxyServer struct{}
 
-func (UnimplementedShredstreamProxyServer) SubscribeEntries(*SubscribeEntriesRequest, grpc.ServerStreamingServer[Entry]) error {
+func (UnimplementedJitoShredstreamProxyServer) SubscribeEntries(*JitoSubscribeEntriesRequest, grpc.ServerStreamingServer[JitoEntry]) error {
 	return status.Error(codes.Unimplemented, "method SubscribeEntries not implemented")
 }
-func (UnimplementedShredstreamProxyServer) mustEmbedUnimplementedShredstreamProxyServer() {}
-func (UnimplementedShredstreamProxyServer) testEmbeddedByValue()                          {}
+func (UnimplementedJitoShredstreamProxyServer) mustEmbedUnimplementedJitoShredstreamProxyServer() {}
+func (UnimplementedJitoShredstreamProxyServer) testEmbeddedByValue()                              {}
 
-// UnsafeShredstreamProxyServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ShredstreamProxyServer will
+// UnsafeJitoShredstreamProxyServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to JitoShredstreamProxyServer will
 // result in compilation errors.
-type UnsafeShredstreamProxyServer interface {
-	mustEmbedUnimplementedShredstreamProxyServer()
+type UnsafeJitoShredstreamProxyServer interface {
+	mustEmbedUnimplementedJitoShredstreamProxyServer()
 }
 
-func RegisterShredstreamProxyServer(s grpc.ServiceRegistrar, srv ShredstreamProxyServer) {
-	// If the following call panics, it indicates UnimplementedShredstreamProxyServer was
+func RegisterJitoShredstreamProxyServer(s grpc.ServiceRegistrar, srv JitoShredstreamProxyServer) {
+	// If the following call panics, it indicates UnimplementedJitoShredstreamProxyServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
 	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
 		t.testEmbeddedByValue()
 	}
-	s.RegisterService(&ShredstreamProxy_ServiceDesc, srv)
+	s.RegisterService(&JitoShredstreamProxy_ServiceDesc, srv)
 }
 
-func _ShredstreamProxy_SubscribeEntries_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(SubscribeEntriesRequest)
+func _JitoShredstreamProxy_SubscribeEntries_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(JitoSubscribeEntriesRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(ShredstreamProxyServer).SubscribeEntries(m, &grpc.GenericServerStream[SubscribeEntriesRequest, Entry]{ServerStream: stream})
+	return srv.(JitoShredstreamProxyServer).SubscribeEntries(m, &grpc.GenericServerStream[JitoSubscribeEntriesRequest, JitoEntry]{ServerStream: stream})
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type ShredstreamProxy_SubscribeEntriesServer = grpc.ServerStreamingServer[Entry]
+type JitoShredstreamProxy_SubscribeEntriesServer = grpc.ServerStreamingServer[JitoEntry]
 
-// ShredstreamProxy_ServiceDesc is the grpc.ServiceDesc for ShredstreamProxy service.
+// JitoShredstreamProxy_ServiceDesc is the grpc.ServiceDesc for JitoShredstreamProxy service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var ShredstreamProxy_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "shredstream.ShredstreamProxy",
-	HandlerType: (*ShredstreamProxyServer)(nil),
+var JitoShredstreamProxy_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "jitoshredstream.JitoShredstreamProxy",
+	HandlerType: (*JitoShredstreamProxyServer)(nil),
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
 		{
 			StreamName:    "SubscribeEntries",
-			Handler:       _ShredstreamProxy_SubscribeEntries_Handler,
+			Handler:       _JitoShredstreamProxy_SubscribeEntries_Handler,
 			ServerStreams: true,
 		},
 	},
