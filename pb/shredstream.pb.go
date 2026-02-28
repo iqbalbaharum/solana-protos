@@ -22,7 +22,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type Socket struct {
+type ShredstreamSocket struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Ip            string                 `protobuf:"bytes,1,opt,name=ip,proto3" json:"ip,omitempty"`
 	Port          int64                  `protobuf:"varint,2,opt,name=port,proto3" json:"port,omitempty"`
@@ -30,20 +30,20 @@ type Socket struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Socket) Reset() {
-	*x = Socket{}
+func (x *ShredstreamSocket) Reset() {
+	*x = ShredstreamSocket{}
 	mi := &file_shredstream_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *Socket) String() string {
+func (x *ShredstreamSocket) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Socket) ProtoMessage() {}
+func (*ShredstreamSocket) ProtoMessage() {}
 
-func (x *Socket) ProtoReflect() protoreflect.Message {
+func (x *ShredstreamSocket) ProtoReflect() protoreflect.Message {
 	mi := &file_shredstream_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -55,30 +55,30 @@ func (x *Socket) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Socket.ProtoReflect.Descriptor instead.
-func (*Socket) Descriptor() ([]byte, []int) {
+// Deprecated: Use ShredstreamSocket.ProtoReflect.Descriptor instead.
+func (*ShredstreamSocket) Descriptor() ([]byte, []int) {
 	return file_shredstream_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Socket) GetIp() string {
+func (x *ShredstreamSocket) GetIp() string {
 	if x != nil {
 		return x.Ip
 	}
 	return ""
 }
 
-func (x *Socket) GetPort() int64 {
+func (x *ShredstreamSocket) GetPort() int64 {
 	if x != nil {
 		return x.Port
 	}
 	return 0
 }
 
-type Heartbeat struct {
+type ShredstreamHeartbeat struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// don't trust IP:PORT from tcp header since it can be tampered over the wire
 	// `socket.ip` must match incoming packet's ip. this prevents spamming an unwitting destination
-	Socket *Socket `protobuf:"bytes,1,opt,name=socket,proto3" json:"socket,omitempty"`
+	Socket *ShredstreamSocket `protobuf:"bytes,1,opt,name=socket,proto3" json:"socket,omitempty"`
 	// regions for shredstream proxy to receive shreds from
 	// list of valid regions: https://docs.jito.wtf/lowlatencytxnsend/#api
 	Regions       []string `protobuf:"bytes,2,rep,name=regions,proto3" json:"regions,omitempty"`
@@ -86,20 +86,20 @@ type Heartbeat struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Heartbeat) Reset() {
-	*x = Heartbeat{}
+func (x *ShredstreamHeartbeat) Reset() {
+	*x = ShredstreamHeartbeat{}
 	mi := &file_shredstream_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *Heartbeat) String() string {
+func (x *ShredstreamHeartbeat) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Heartbeat) ProtoMessage() {}
+func (*ShredstreamHeartbeat) ProtoMessage() {}
 
-func (x *Heartbeat) ProtoReflect() protoreflect.Message {
+func (x *ShredstreamHeartbeat) ProtoReflect() protoreflect.Message {
 	mi := &file_shredstream_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -111,26 +111,26 @@ func (x *Heartbeat) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Heartbeat.ProtoReflect.Descriptor instead.
-func (*Heartbeat) Descriptor() ([]byte, []int) {
+// Deprecated: Use ShredstreamHeartbeat.ProtoReflect.Descriptor instead.
+func (*ShredstreamHeartbeat) Descriptor() ([]byte, []int) {
 	return file_shredstream_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *Heartbeat) GetSocket() *Socket {
+func (x *ShredstreamHeartbeat) GetSocket() *ShredstreamSocket {
 	if x != nil {
 		return x.Socket
 	}
 	return nil
 }
 
-func (x *Heartbeat) GetRegions() []string {
+func (x *ShredstreamHeartbeat) GetRegions() []string {
 	if x != nil {
 		return x.Regions
 	}
 	return nil
 }
 
-type HeartbeatResponse struct {
+type ShredstreamHeartbeatResponse struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// client must respond within `ttl_ms` to keep stream alive
 	TtlMs         uint32 `protobuf:"varint,1,opt,name=ttl_ms,json=ttlMs,proto3" json:"ttl_ms,omitempty"`
@@ -138,20 +138,20 @@ type HeartbeatResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *HeartbeatResponse) Reset() {
-	*x = HeartbeatResponse{}
+func (x *ShredstreamHeartbeatResponse) Reset() {
+	*x = ShredstreamHeartbeatResponse{}
 	mi := &file_shredstream_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *HeartbeatResponse) String() string {
+func (x *ShredstreamHeartbeatResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*HeartbeatResponse) ProtoMessage() {}
+func (*ShredstreamHeartbeatResponse) ProtoMessage() {}
 
-func (x *HeartbeatResponse) ProtoReflect() protoreflect.Message {
+func (x *ShredstreamHeartbeatResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_shredstream_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -163,12 +163,12 @@ func (x *HeartbeatResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use HeartbeatResponse.ProtoReflect.Descriptor instead.
-func (*HeartbeatResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use ShredstreamHeartbeatResponse.ProtoReflect.Descriptor instead.
+func (*ShredstreamHeartbeatResponse) Descriptor() ([]byte, []int) {
 	return file_shredstream_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *HeartbeatResponse) GetTtlMs() uint32 {
+func (x *ShredstreamHeartbeatResponse) GetTtlMs() uint32 {
 	if x != nil {
 		return x.TtlMs
 	}
@@ -332,14 +332,14 @@ var File_shredstream_proto protoreflect.FileDescriptor
 
 const file_shredstream_proto_rawDesc = "" +
 	"\n" +
-	"\x11shredstream.proto\x12\vshredstream\x1a\x1fgoogle/protobuf/timestamp.proto\",\n" +
-	"\x06Socket\x12\x0e\n" +
+	"\x11shredstream.proto\x12\vshredstream\x1a\x1fgoogle/protobuf/timestamp.proto\"7\n" +
+	"\x11ShredstreamSocket\x12\x0e\n" +
 	"\x02ip\x18\x01 \x01(\tR\x02ip\x12\x12\n" +
-	"\x04port\x18\x02 \x01(\x03R\x04port\"R\n" +
-	"\tHeartbeat\x12+\n" +
-	"\x06socket\x18\x01 \x01(\v2\x13.shredstream.SocketR\x06socket\x12\x18\n" +
-	"\aregions\x18\x02 \x03(\tR\aregions\"*\n" +
-	"\x11HeartbeatResponse\x12\x15\n" +
+	"\x04port\x18\x02 \x01(\x03R\x04port\"h\n" +
+	"\x14ShredstreamHeartbeat\x126\n" +
+	"\x06socket\x18\x01 \x01(\v2\x1e.shredstream.ShredstreamSocketR\x06socket\x12\x18\n" +
+	"\aregions\x18\x02 \x03(\tR\aregions\"5\n" +
+	"\x1cShredstreamHeartbeatResponse\x12\x15\n" +
 	"\x06ttl_ms\x18\x01 \x01(\rR\x05ttlMs\"x\n" +
 	"\n" +
 	"TraceShred\x12\x16\n" +
@@ -350,9 +350,9 @@ const file_shredstream_proto_rawDesc = "" +
 	"\x17SubscribeEntriesRequest\"5\n" +
 	"\x05Entry\x12\x12\n" +
 	"\x04slot\x18\x01 \x01(\x04R\x04slot\x12\x18\n" +
-	"\aentries\x18\x02 \x01(\fR\aentries2X\n" +
-	"\vShredstream\x12I\n" +
-	"\rSendHeartbeat\x12\x16.shredstream.Heartbeat\x1a\x1e.shredstream.HeartbeatResponse\"\x002b\n" +
+	"\aentries\x18\x02 \x01(\fR\aentries2n\n" +
+	"\vShredstream\x12_\n" +
+	"\rSendHeartbeat\x12!.shredstream.ShredstreamHeartbeat\x1a).shredstream.ShredstreamHeartbeatResponse\"\x002b\n" +
 	"\x10ShredstreamProxy\x12N\n" +
 	"\x10SubscribeEntries\x12$.shredstream.SubscribeEntriesRequest\x1a\x12.shredstream.Entry0\x01B*Z(github.com/iqbalbaharum/solana-protos/pbb\x06proto3"
 
@@ -370,20 +370,20 @@ func file_shredstream_proto_rawDescGZIP() []byte {
 
 var file_shredstream_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_shredstream_proto_goTypes = []any{
-	(*Socket)(nil),                  // 0: shredstream.Socket
-	(*Heartbeat)(nil),               // 1: shredstream.Heartbeat
-	(*HeartbeatResponse)(nil),       // 2: shredstream.HeartbeatResponse
-	(*TraceShred)(nil),              // 3: shredstream.TraceShred
-	(*SubscribeEntriesRequest)(nil), // 4: shredstream.SubscribeEntriesRequest
-	(*Entry)(nil),                   // 5: shredstream.Entry
-	(*timestamppb.Timestamp)(nil),   // 6: google.protobuf.Timestamp
+	(*ShredstreamSocket)(nil),            // 0: shredstream.ShredstreamSocket
+	(*ShredstreamHeartbeat)(nil),         // 1: shredstream.ShredstreamHeartbeat
+	(*ShredstreamHeartbeatResponse)(nil), // 2: shredstream.ShredstreamHeartbeatResponse
+	(*TraceShred)(nil),                   // 3: shredstream.TraceShred
+	(*SubscribeEntriesRequest)(nil),      // 4: shredstream.SubscribeEntriesRequest
+	(*Entry)(nil),                        // 5: shredstream.Entry
+	(*timestamppb.Timestamp)(nil),        // 6: google.protobuf.Timestamp
 }
 var file_shredstream_proto_depIdxs = []int32{
-	0, // 0: shredstream.Heartbeat.socket:type_name -> shredstream.Socket
+	0, // 0: shredstream.ShredstreamHeartbeat.socket:type_name -> shredstream.ShredstreamSocket
 	6, // 1: shredstream.TraceShred.created_at:type_name -> google.protobuf.Timestamp
-	1, // 2: shredstream.Shredstream.SendHeartbeat:input_type -> shredstream.Heartbeat
+	1, // 2: shredstream.Shredstream.SendHeartbeat:input_type -> shredstream.ShredstreamHeartbeat
 	4, // 3: shredstream.ShredstreamProxy.SubscribeEntries:input_type -> shredstream.SubscribeEntriesRequest
-	2, // 4: shredstream.Shredstream.SendHeartbeat:output_type -> shredstream.HeartbeatResponse
+	2, // 4: shredstream.Shredstream.SendHeartbeat:output_type -> shredstream.ShredstreamHeartbeatResponse
 	5, // 5: shredstream.ShredstreamProxy.SubscribeEntries:output_type -> shredstream.Entry
 	4, // [4:6] is the sub-list for method output_type
 	2, // [2:4] is the sub-list for method input_type

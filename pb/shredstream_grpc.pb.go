@@ -27,7 +27,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ShredstreamClient interface {
 	// RPC endpoint to send heartbeats to keep shreds flowing
-	SendHeartbeat(ctx context.Context, in *Heartbeat, opts ...grpc.CallOption) (*HeartbeatResponse, error)
+	SendHeartbeat(ctx context.Context, in *ShredstreamHeartbeat, opts ...grpc.CallOption) (*ShredstreamHeartbeatResponse, error)
 }
 
 type shredstreamClient struct {
@@ -38,9 +38,9 @@ func NewShredstreamClient(cc grpc.ClientConnInterface) ShredstreamClient {
 	return &shredstreamClient{cc}
 }
 
-func (c *shredstreamClient) SendHeartbeat(ctx context.Context, in *Heartbeat, opts ...grpc.CallOption) (*HeartbeatResponse, error) {
+func (c *shredstreamClient) SendHeartbeat(ctx context.Context, in *ShredstreamHeartbeat, opts ...grpc.CallOption) (*ShredstreamHeartbeatResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(HeartbeatResponse)
+	out := new(ShredstreamHeartbeatResponse)
 	err := c.cc.Invoke(ctx, Shredstream_SendHeartbeat_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -53,7 +53,7 @@ func (c *shredstreamClient) SendHeartbeat(ctx context.Context, in *Heartbeat, op
 // for forward compatibility.
 type ShredstreamServer interface {
 	// RPC endpoint to send heartbeats to keep shreds flowing
-	SendHeartbeat(context.Context, *Heartbeat) (*HeartbeatResponse, error)
+	SendHeartbeat(context.Context, *ShredstreamHeartbeat) (*ShredstreamHeartbeatResponse, error)
 	mustEmbedUnimplementedShredstreamServer()
 }
 
@@ -64,7 +64,7 @@ type ShredstreamServer interface {
 // pointer dereference when methods are called.
 type UnimplementedShredstreamServer struct{}
 
-func (UnimplementedShredstreamServer) SendHeartbeat(context.Context, *Heartbeat) (*HeartbeatResponse, error) {
+func (UnimplementedShredstreamServer) SendHeartbeat(context.Context, *ShredstreamHeartbeat) (*ShredstreamHeartbeatResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method SendHeartbeat not implemented")
 }
 func (UnimplementedShredstreamServer) mustEmbedUnimplementedShredstreamServer() {}
@@ -89,7 +89,7 @@ func RegisterShredstreamServer(s grpc.ServiceRegistrar, srv ShredstreamServer) {
 }
 
 func _Shredstream_SendHeartbeat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Heartbeat)
+	in := new(ShredstreamHeartbeat)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -101,7 +101,7 @@ func _Shredstream_SendHeartbeat_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: Shredstream_SendHeartbeat_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShredstreamServer).SendHeartbeat(ctx, req.(*Heartbeat))
+		return srv.(ShredstreamServer).SendHeartbeat(ctx, req.(*ShredstreamHeartbeat))
 	}
 	return interceptor(ctx, in, info, handler)
 }
