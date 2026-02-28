@@ -1,10 +1,10 @@
 syntax = "proto3";
 
+package geyser;
+
 import public "solana-storage.proto";
 
 option go_package = "github.com/iqbalbaharum/solana-protos/pb";
-
-package geyser;
 
 service Geyser {
   rpc Subscribe(stream SubscribeRequest) returns (stream SubscribeUpdate) {}

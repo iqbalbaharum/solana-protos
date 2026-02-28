@@ -1,38 +1,38 @@
 syntax = "proto3";
 
-package jitoshredstream;
+package shredstream;
 
 import "google/protobuf/timestamp.proto";
 // import "shared.proto";
 
 option go_package = "github.com/iqbalbaharum/solana-protos/pb";
 
-message JitoSocket {
+message Socket {
   string ip = 1;
   int64 port = 2;
 }
 
-message JitoHeartbeat {
+message Heartbeat {
   // don't trust IP:PORT from tcp header since it can be tampered over the wire
   // `socket.ip` must match incoming packet's ip. this prevents spamming an unwitting destination
-  JitoSocket socket = 1;
+  Socket socket = 1;
 
   // regions for shredstream proxy to receive shreds from
   // list of valid regions: https://docs.jito.wtf/lowlatencytxnsend/#api
   repeated string regions = 2;
 }
 
-message JitoHeartbeatResponse {
+message HeartbeatResponse {
   // client must respond within `ttl_ms` to keep stream alive
   uint32 ttl_ms = 1;
 }
 
-service JitoShredstream {
+service Shredstream {
   // RPC endpoint to send heartbeats to keep shreds flowing
-  rpc SendHeartbeat(JitoHeartbeat) returns (JitoHeartbeatResponse) {}
+  rpc SendHeartbeat(Heartbeat) returns (HeartbeatResponse) {}
 }
 
-message JitoTraceShred {
+message TraceShred {
   // source region, one of: https://docs.jito.wtf/lowlatencytxnsend/#api
   string region = 1;
   // timestamp of creation
@@ -43,15 +43,15 @@ message JitoTraceShred {
 
 // Shredstream Proxy
 
-service JitoShredstreamProxy {
-  rpc SubscribeEntries(JitoSubscribeEntriesRequest) returns (stream JitoEntry);
+service ShredstreamProxy {
+  rpc SubscribeEntries(SubscribeEntriesRequest) returns (stream Entry);
 }
 
-message JitoSubscribeEntriesRequest {
+message SubscribeEntriesRequest {
   // tbd: we may want to add filters here
 }
 
-message JitoEntry {
+message Entry {
   // the slot that the entry is from
   uint64 slot = 1;
 
