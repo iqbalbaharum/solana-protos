@@ -5,7 +5,7 @@ package jitoshredstream;
 import "google/protobuf/timestamp.proto";
 // import "shared.proto";
 
-option go_package = "/jitoshredstream/pb";
+option go_package = "github.com/iqbalbaharum/solana-protos/pb";
 
 message JitoSocket {
   string ip = 1;

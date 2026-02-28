@@ -7,12 +7,13 @@
 package pb
 
 import (
-	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
-	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
+
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 )
 
 const (
@@ -354,7 +355,7 @@ const file_shredstream_proto_rawDesc = "" +
 	"\x0fJitoShredstream\x12Y\n" +
 	"\rSendHeartbeat\x12\x1e.jitoshredstream.JitoHeartbeat\x1a&.jitoshredstream.JitoHeartbeatResponse\"\x002v\n" +
 	"\x14JitoShredstreamProxy\x12^\n" +
-	"\x10SubscribeEntries\x12,.jitoshredstream.JitoSubscribeEntriesRequest\x1a\x1a.jitoshredstream.JitoEntry0\x01B\x15Z\x13/jitoshredstream/pbb\x06proto3"
+	"\x10SubscribeEntries\x12,.jitoshredstream.JitoSubscribeEntriesRequest\x1a\x1a.jitoshredstream.JitoEntry0\x01B*Z(github.com/iqbalbaharum/solana-protos/pbb\x06proto3"
 
 var (
 	file_shredstream_proto_rawDescOnce sync.Once
