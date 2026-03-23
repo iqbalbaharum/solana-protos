@@ -123,7 +123,8 @@ var Shredstream_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	ShredstreamProxy_SubscribeEntries_FullMethodName = "/shredstream.ShredstreamProxy/SubscribeEntries"
+	ShredstreamProxy_SubscribeEntries_FullMethodName            = "/shredstream.ShredstreamProxy/SubscribeEntries"
+	ShredstreamProxy_SubscribeParsedTransactions_FullMethodName = "/shredstream.ShredstreamProxy/SubscribeParsedTransactions"
 )
 
 // ShredstreamProxyClient is the client API for ShredstreamProxy service.
@@ -131,6 +132,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ShredstreamProxyClient interface {
 	SubscribeEntries(ctx context.Context, in *SubscribeEntriesRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Entry], error)
+	SubscribeParsedTransactions(ctx context.Context, in *SubscribeParsedRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[ParsedTransaction], error)
 }
 
 type shredstreamProxyClient struct {
@@ -160,11 +162,31 @@ func (c *shredstreamProxyClient) SubscribeEntries(ctx context.Context, in *Subsc
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type ShredstreamProxy_SubscribeEntriesClient = grpc.ServerStreamingClient[Entry]
 
+func (c *shredstreamProxyClient) SubscribeParsedTransactions(ctx context.Context, in *SubscribeParsedRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[ParsedTransaction], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &ShredstreamProxy_ServiceDesc.Streams[1], ShredstreamProxy_SubscribeParsedTransactions_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[SubscribeParsedRequest, ParsedTransaction]{ClientStream: stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type ShredstreamProxy_SubscribeParsedTransactionsClient = grpc.ServerStreamingClient[ParsedTransaction]
+
 // ShredstreamProxyServer is the server API for ShredstreamProxy service.
 // All implementations must embed UnimplementedShredstreamProxyServer
 // for forward compatibility.
 type ShredstreamProxyServer interface {
 	SubscribeEntries(*SubscribeEntriesRequest, grpc.ServerStreamingServer[Entry]) error
+	SubscribeParsedTransactions(*SubscribeParsedRequest, grpc.ServerStreamingServer[ParsedTransaction]) error
 	mustEmbedUnimplementedShredstreamProxyServer()
 }
 
@@ -177,6 +199,9 @@ type UnimplementedShredstreamProxyServer struct{}
 
 func (UnimplementedShredstreamProxyServer) SubscribeEntries(*SubscribeEntriesRequest, grpc.ServerStreamingServer[Entry]) error {
 	return status.Error(codes.Unimplemented, "method SubscribeEntries not implemented")
+}
+func (UnimplementedShredstreamProxyServer) SubscribeParsedTransactions(*SubscribeParsedRequest, grpc.ServerStreamingServer[ParsedTransaction]) error {
+	return status.Error(codes.Unimplemented, "method SubscribeParsedTransactions not implemented")
 }
 func (UnimplementedShredstreamProxyServer) mustEmbedUnimplementedShredstreamProxyServer() {}
 func (UnimplementedShredstreamProxyServer) testEmbeddedByValue()                          {}
@@ -210,6 +235,17 @@ func _ShredstreamProxy_SubscribeEntries_Handler(srv interface{}, stream grpc.Ser
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type ShredstreamProxy_SubscribeEntriesServer = grpc.ServerStreamingServer[Entry]
 
+func _ShredstreamProxy_SubscribeParsedTransactions_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(SubscribeParsedRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(ShredstreamProxyServer).SubscribeParsedTransactions(m, &grpc.GenericServerStream[SubscribeParsedRequest, ParsedTransaction]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type ShredstreamProxy_SubscribeParsedTransactionsServer = grpc.ServerStreamingServer[ParsedTransaction]
+
 // ShredstreamProxy_ServiceDesc is the grpc.ServiceDesc for ShredstreamProxy service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -221,6 +257,11 @@ var ShredstreamProxy_ServiceDesc = grpc.ServiceDesc{
 		{
 			StreamName:    "SubscribeEntries",
 			Handler:       _ShredstreamProxy_SubscribeEntries_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "SubscribeParsedTransactions",
+			Handler:       _ShredstreamProxy_SubscribeParsedTransactions_Handler,
 			ServerStreams: true,
 		},
 	},

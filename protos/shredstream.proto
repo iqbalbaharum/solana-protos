@@ -45,10 +45,42 @@ message TraceShred {
 
 service ShredstreamProxy {
   rpc SubscribeEntries(SubscribeEntriesRequest) returns (stream Entry);
+  rpc SubscribeParsedTransactions(SubscribeParsedRequest) returns (stream ParsedTransaction);
 }
 
 message SubscribeEntriesRequest {
-  // tbd: we may want to add filters here
+  bool smart_filter = 1;
+}
+
+message SubscribeParsedRequest {
+  string filter = 1;  // "all", "pumpfun", "axiom"
+}
+
+enum TradeType {
+  TRADE_TYPE_UNKNOWN = 0;
+  TRADE_TYPE_PUMPFUN_BUY = 1;
+  TRADE_TYPE_PUMPFUN_SELL = 2;
+  TRADE_TYPE_PUMPFUN_BUY_EXACT_IN = 3;
+  TRADE_TYPE_AXIOM_BUY = 4;
+  TRADE_TYPE_AXIOM_SELL = 5;
+}
+
+enum Origin {
+  ORIGIN_UNSPECIFIED = 0;
+  ORIGIN_PUMPFUN = 1;
+  ORIGIN_AXIOM = 2;
+}
+
+message ParsedTransaction {
+  uint64 slot = 1;
+  bytes signature = 2;
+  string mint = 3;
+  string signer = 4;
+  TradeType trade_type = 5;
+  Origin origin = 6;
+  uint64 token_amount = 7;
+  uint64 sol_amount = 8;
+  uint64 timestamp = 9;
 }
 
 message Entry {

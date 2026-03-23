@@ -22,6 +22,113 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type TradeType int32
+
+const (
+	TradeType_TRADE_TYPE_UNKNOWN              TradeType = 0
+	TradeType_TRADE_TYPE_PUMPFUN_BUY          TradeType = 1
+	TradeType_TRADE_TYPE_PUMPFUN_SELL         TradeType = 2
+	TradeType_TRADE_TYPE_PUMPFUN_BUY_EXACT_IN TradeType = 3
+	TradeType_TRADE_TYPE_AXIOM_BUY            TradeType = 4
+	TradeType_TRADE_TYPE_AXIOM_SELL           TradeType = 5
+)
+
+// Enum value maps for TradeType.
+var (
+	TradeType_name = map[int32]string{
+		0: "TRADE_TYPE_UNKNOWN",
+		1: "TRADE_TYPE_PUMPFUN_BUY",
+		2: "TRADE_TYPE_PUMPFUN_SELL",
+		3: "TRADE_TYPE_PUMPFUN_BUY_EXACT_IN",
+		4: "TRADE_TYPE_AXIOM_BUY",
+		5: "TRADE_TYPE_AXIOM_SELL",
+	}
+	TradeType_value = map[string]int32{
+		"TRADE_TYPE_UNKNOWN":              0,
+		"TRADE_TYPE_PUMPFUN_BUY":          1,
+		"TRADE_TYPE_PUMPFUN_SELL":         2,
+		"TRADE_TYPE_PUMPFUN_BUY_EXACT_IN": 3,
+		"TRADE_TYPE_AXIOM_BUY":            4,
+		"TRADE_TYPE_AXIOM_SELL":           5,
+	}
+)
+
+func (x TradeType) Enum() *TradeType {
+	p := new(TradeType)
+	*p = x
+	return p
+}
+
+func (x TradeType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (TradeType) Descriptor() protoreflect.EnumDescriptor {
+	return file_shredstream_proto_enumTypes[0].Descriptor()
+}
+
+func (TradeType) Type() protoreflect.EnumType {
+	return &file_shredstream_proto_enumTypes[0]
+}
+
+func (x TradeType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use TradeType.Descriptor instead.
+func (TradeType) EnumDescriptor() ([]byte, []int) {
+	return file_shredstream_proto_rawDescGZIP(), []int{0}
+}
+
+type Origin int32
+
+const (
+	Origin_ORIGIN_UNSPECIFIED Origin = 0
+	Origin_ORIGIN_PUMPFUN     Origin = 1
+	Origin_ORIGIN_AXIOM       Origin = 2
+)
+
+// Enum value maps for Origin.
+var (
+	Origin_name = map[int32]string{
+		0: "ORIGIN_UNSPECIFIED",
+		1: "ORIGIN_PUMPFUN",
+		2: "ORIGIN_AXIOM",
+	}
+	Origin_value = map[string]int32{
+		"ORIGIN_UNSPECIFIED": 0,
+		"ORIGIN_PUMPFUN":     1,
+		"ORIGIN_AXIOM":       2,
+	}
+)
+
+func (x Origin) Enum() *Origin {
+	p := new(Origin)
+	*p = x
+	return p
+}
+
+func (x Origin) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (Origin) Descriptor() protoreflect.EnumDescriptor {
+	return file_shredstream_proto_enumTypes[1].Descriptor()
+}
+
+func (Origin) Type() protoreflect.EnumType {
+	return &file_shredstream_proto_enumTypes[1]
+}
+
+func (x Origin) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use Origin.Descriptor instead.
+func (Origin) EnumDescriptor() ([]byte, []int) {
+	return file_shredstream_proto_rawDescGZIP(), []int{1}
+}
+
 type ShredstreamSocket struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Ip            string                 `protobuf:"bytes,1,opt,name=ip,proto3" json:"ip,omitempty"`
@@ -240,6 +347,7 @@ func (x *TraceShred) GetSeqNum() uint32 {
 
 type SubscribeEntriesRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	SmartFilter   bool                   `protobuf:"varint,1,opt,name=smart_filter,json=smartFilter,proto3" json:"smart_filter,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -274,6 +382,165 @@ func (*SubscribeEntriesRequest) Descriptor() ([]byte, []int) {
 	return file_shredstream_proto_rawDescGZIP(), []int{4}
 }
 
+func (x *SubscribeEntriesRequest) GetSmartFilter() bool {
+	if x != nil {
+		return x.SmartFilter
+	}
+	return false
+}
+
+type SubscribeParsedRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Filter        string                 `protobuf:"bytes,1,opt,name=filter,proto3" json:"filter,omitempty"` // "all", "pumpfun", "axiom"
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SubscribeParsedRequest) Reset() {
+	*x = SubscribeParsedRequest{}
+	mi := &file_shredstream_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SubscribeParsedRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SubscribeParsedRequest) ProtoMessage() {}
+
+func (x *SubscribeParsedRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_shredstream_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SubscribeParsedRequest.ProtoReflect.Descriptor instead.
+func (*SubscribeParsedRequest) Descriptor() ([]byte, []int) {
+	return file_shredstream_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *SubscribeParsedRequest) GetFilter() string {
+	if x != nil {
+		return x.Filter
+	}
+	return ""
+}
+
+type ParsedTransaction struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Slot          uint64                 `protobuf:"varint,1,opt,name=slot,proto3" json:"slot,omitempty"`
+	Signature     []byte                 `protobuf:"bytes,2,opt,name=signature,proto3" json:"signature,omitempty"`
+	Mint          string                 `protobuf:"bytes,3,opt,name=mint,proto3" json:"mint,omitempty"`
+	Signer        string                 `protobuf:"bytes,4,opt,name=signer,proto3" json:"signer,omitempty"`
+	TradeType     TradeType              `protobuf:"varint,5,opt,name=trade_type,json=tradeType,proto3,enum=shredstream.TradeType" json:"trade_type,omitempty"`
+	Origin        Origin                 `protobuf:"varint,6,opt,name=origin,proto3,enum=shredstream.Origin" json:"origin,omitempty"`
+	TokenAmount   uint64                 `protobuf:"varint,7,opt,name=token_amount,json=tokenAmount,proto3" json:"token_amount,omitempty"`
+	SolAmount     uint64                 `protobuf:"varint,8,opt,name=sol_amount,json=solAmount,proto3" json:"sol_amount,omitempty"`
+	Timestamp     uint64                 `protobuf:"varint,9,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ParsedTransaction) Reset() {
+	*x = ParsedTransaction{}
+	mi := &file_shredstream_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ParsedTransaction) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ParsedTransaction) ProtoMessage() {}
+
+func (x *ParsedTransaction) ProtoReflect() protoreflect.Message {
+	mi := &file_shredstream_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ParsedTransaction.ProtoReflect.Descriptor instead.
+func (*ParsedTransaction) Descriptor() ([]byte, []int) {
+	return file_shredstream_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *ParsedTransaction) GetSlot() uint64 {
+	if x != nil {
+		return x.Slot
+	}
+	return 0
+}
+
+func (x *ParsedTransaction) GetSignature() []byte {
+	if x != nil {
+		return x.Signature
+	}
+	return nil
+}
+
+func (x *ParsedTransaction) GetMint() string {
+	if x != nil {
+		return x.Mint
+	}
+	return ""
+}
+
+func (x *ParsedTransaction) GetSigner() string {
+	if x != nil {
+		return x.Signer
+	}
+	return ""
+}
+
+func (x *ParsedTransaction) GetTradeType() TradeType {
+	if x != nil {
+		return x.TradeType
+	}
+	return TradeType_TRADE_TYPE_UNKNOWN
+}
+
+func (x *ParsedTransaction) GetOrigin() Origin {
+	if x != nil {
+		return x.Origin
+	}
+	return Origin_ORIGIN_UNSPECIFIED
+}
+
+func (x *ParsedTransaction) GetTokenAmount() uint64 {
+	if x != nil {
+		return x.TokenAmount
+	}
+	return 0
+}
+
+func (x *ParsedTransaction) GetSolAmount() uint64 {
+	if x != nil {
+		return x.SolAmount
+	}
+	return 0
+}
+
+func (x *ParsedTransaction) GetTimestamp() uint64 {
+	if x != nil {
+		return x.Timestamp
+	}
+	return 0
+}
+
 type Entry struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// the slot that the entry is from
@@ -286,7 +553,7 @@ type Entry struct {
 
 func (x *Entry) Reset() {
 	*x = Entry{}
-	mi := &file_shredstream_proto_msgTypes[5]
+	mi := &file_shredstream_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -298,7 +565,7 @@ func (x *Entry) String() string {
 func (*Entry) ProtoMessage() {}
 
 func (x *Entry) ProtoReflect() protoreflect.Message {
-	mi := &file_shredstream_proto_msgTypes[5]
+	mi := &file_shredstream_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -311,7 +578,7 @@ func (x *Entry) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Entry.ProtoReflect.Descriptor instead.
 func (*Entry) Descriptor() ([]byte, []int) {
-	return file_shredstream_proto_rawDescGZIP(), []int{5}
+	return file_shredstream_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *Entry) GetSlot() uint64 {
@@ -346,15 +613,42 @@ const file_shredstream_proto_rawDesc = "" +
 	"\x06region\x18\x01 \x01(\tR\x06region\x129\n" +
 	"\n" +
 	"created_at\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x12\x17\n" +
-	"\aseq_num\x18\x03 \x01(\rR\x06seqNum\"\x19\n" +
-	"\x17SubscribeEntriesRequest\"5\n" +
+	"\aseq_num\x18\x03 \x01(\rR\x06seqNum\"<\n" +
+	"\x17SubscribeEntriesRequest\x12!\n" +
+	"\fsmart_filter\x18\x01 \x01(\bR\vsmartFilter\"0\n" +
+	"\x16SubscribeParsedRequest\x12\x16\n" +
+	"\x06filter\x18\x01 \x01(\tR\x06filter\"\xb5\x02\n" +
+	"\x11ParsedTransaction\x12\x12\n" +
+	"\x04slot\x18\x01 \x01(\x04R\x04slot\x12\x1c\n" +
+	"\tsignature\x18\x02 \x01(\fR\tsignature\x12\x12\n" +
+	"\x04mint\x18\x03 \x01(\tR\x04mint\x12\x16\n" +
+	"\x06signer\x18\x04 \x01(\tR\x06signer\x125\n" +
+	"\n" +
+	"trade_type\x18\x05 \x01(\x0e2\x16.shredstream.TradeTypeR\ttradeType\x12+\n" +
+	"\x06origin\x18\x06 \x01(\x0e2\x13.shredstream.OriginR\x06origin\x12!\n" +
+	"\ftoken_amount\x18\a \x01(\x04R\vtokenAmount\x12\x1d\n" +
+	"\n" +
+	"sol_amount\x18\b \x01(\x04R\tsolAmount\x12\x1c\n" +
+	"\ttimestamp\x18\t \x01(\x04R\ttimestamp\"5\n" +
 	"\x05Entry\x12\x12\n" +
 	"\x04slot\x18\x01 \x01(\x04R\x04slot\x12\x18\n" +
-	"\aentries\x18\x02 \x01(\fR\aentries2n\n" +
+	"\aentries\x18\x02 \x01(\fR\aentries*\xb6\x01\n" +
+	"\tTradeType\x12\x16\n" +
+	"\x12TRADE_TYPE_UNKNOWN\x10\x00\x12\x1a\n" +
+	"\x16TRADE_TYPE_PUMPFUN_BUY\x10\x01\x12\x1b\n" +
+	"\x17TRADE_TYPE_PUMPFUN_SELL\x10\x02\x12#\n" +
+	"\x1fTRADE_TYPE_PUMPFUN_BUY_EXACT_IN\x10\x03\x12\x18\n" +
+	"\x14TRADE_TYPE_AXIOM_BUY\x10\x04\x12\x19\n" +
+	"\x15TRADE_TYPE_AXIOM_SELL\x10\x05*F\n" +
+	"\x06Origin\x12\x16\n" +
+	"\x12ORIGIN_UNSPECIFIED\x10\x00\x12\x12\n" +
+	"\x0eORIGIN_PUMPFUN\x10\x01\x12\x10\n" +
+	"\fORIGIN_AXIOM\x10\x022n\n" +
 	"\vShredstream\x12_\n" +
-	"\rSendHeartbeat\x12!.shredstream.ShredstreamHeartbeat\x1a).shredstream.ShredstreamHeartbeatResponse\"\x002b\n" +
+	"\rSendHeartbeat\x12!.shredstream.ShredstreamHeartbeat\x1a).shredstream.ShredstreamHeartbeatResponse\"\x002\xc8\x01\n" +
 	"\x10ShredstreamProxy\x12N\n" +
-	"\x10SubscribeEntries\x12$.shredstream.SubscribeEntriesRequest\x1a\x12.shredstream.Entry0\x01B*Z(github.com/iqbalbaharum/solana-protos/pbb\x06proto3"
+	"\x10SubscribeEntries\x12$.shredstream.SubscribeEntriesRequest\x1a\x12.shredstream.Entry0\x01\x12d\n" +
+	"\x1bSubscribeParsedTransactions\x12#.shredstream.SubscribeParsedRequest\x1a\x1e.shredstream.ParsedTransaction0\x01B*Z(github.com/iqbalbaharum/solana-protos/pbb\x06proto3"
 
 var (
 	file_shredstream_proto_rawDescOnce sync.Once
@@ -368,28 +662,37 @@ func file_shredstream_proto_rawDescGZIP() []byte {
 	return file_shredstream_proto_rawDescData
 }
 
-var file_shredstream_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_shredstream_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
+var file_shredstream_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_shredstream_proto_goTypes = []any{
-	(*ShredstreamSocket)(nil),            // 0: shredstream.ShredstreamSocket
-	(*ShredstreamHeartbeat)(nil),         // 1: shredstream.ShredstreamHeartbeat
-	(*ShredstreamHeartbeatResponse)(nil), // 2: shredstream.ShredstreamHeartbeatResponse
-	(*TraceShred)(nil),                   // 3: shredstream.TraceShred
-	(*SubscribeEntriesRequest)(nil),      // 4: shredstream.SubscribeEntriesRequest
-	(*Entry)(nil),                        // 5: shredstream.Entry
-	(*timestamppb.Timestamp)(nil),        // 6: google.protobuf.Timestamp
+	(TradeType)(0),                       // 0: shredstream.TradeType
+	(Origin)(0),                          // 1: shredstream.Origin
+	(*ShredstreamSocket)(nil),            // 2: shredstream.ShredstreamSocket
+	(*ShredstreamHeartbeat)(nil),         // 3: shredstream.ShredstreamHeartbeat
+	(*ShredstreamHeartbeatResponse)(nil), // 4: shredstream.ShredstreamHeartbeatResponse
+	(*TraceShred)(nil),                   // 5: shredstream.TraceShred
+	(*SubscribeEntriesRequest)(nil),      // 6: shredstream.SubscribeEntriesRequest
+	(*SubscribeParsedRequest)(nil),       // 7: shredstream.SubscribeParsedRequest
+	(*ParsedTransaction)(nil),            // 8: shredstream.ParsedTransaction
+	(*Entry)(nil),                        // 9: shredstream.Entry
+	(*timestamppb.Timestamp)(nil),        // 10: google.protobuf.Timestamp
 }
 var file_shredstream_proto_depIdxs = []int32{
-	0, // 0: shredstream.ShredstreamHeartbeat.socket:type_name -> shredstream.ShredstreamSocket
-	6, // 1: shredstream.TraceShred.created_at:type_name -> google.protobuf.Timestamp
-	1, // 2: shredstream.Shredstream.SendHeartbeat:input_type -> shredstream.ShredstreamHeartbeat
-	4, // 3: shredstream.ShredstreamProxy.SubscribeEntries:input_type -> shredstream.SubscribeEntriesRequest
-	2, // 4: shredstream.Shredstream.SendHeartbeat:output_type -> shredstream.ShredstreamHeartbeatResponse
-	5, // 5: shredstream.ShredstreamProxy.SubscribeEntries:output_type -> shredstream.Entry
-	4, // [4:6] is the sub-list for method output_type
-	2, // [2:4] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	2,  // 0: shredstream.ShredstreamHeartbeat.socket:type_name -> shredstream.ShredstreamSocket
+	10, // 1: shredstream.TraceShred.created_at:type_name -> google.protobuf.Timestamp
+	0,  // 2: shredstream.ParsedTransaction.trade_type:type_name -> shredstream.TradeType
+	1,  // 3: shredstream.ParsedTransaction.origin:type_name -> shredstream.Origin
+	3,  // 4: shredstream.Shredstream.SendHeartbeat:input_type -> shredstream.ShredstreamHeartbeat
+	6,  // 5: shredstream.ShredstreamProxy.SubscribeEntries:input_type -> shredstream.SubscribeEntriesRequest
+	7,  // 6: shredstream.ShredstreamProxy.SubscribeParsedTransactions:input_type -> shredstream.SubscribeParsedRequest
+	4,  // 7: shredstream.Shredstream.SendHeartbeat:output_type -> shredstream.ShredstreamHeartbeatResponse
+	9,  // 8: shredstream.ShredstreamProxy.SubscribeEntries:output_type -> shredstream.Entry
+	8,  // 9: shredstream.ShredstreamProxy.SubscribeParsedTransactions:output_type -> shredstream.ParsedTransaction
+	7,  // [7:10] is the sub-list for method output_type
+	4,  // [4:7] is the sub-list for method input_type
+	4,  // [4:4] is the sub-list for extension type_name
+	4,  // [4:4] is the sub-list for extension extendee
+	0,  // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_shredstream_proto_init() }
@@ -402,13 +705,14 @@ func file_shredstream_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_shredstream_proto_rawDesc), len(file_shredstream_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   6,
+			NumEnums:      2,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   2,
 		},
 		GoTypes:           file_shredstream_proto_goTypes,
 		DependencyIndexes: file_shredstream_proto_depIdxs,
+		EnumInfos:         file_shredstream_proto_enumTypes,
 		MessageInfos:      file_shredstream_proto_msgTypes,
 	}.Build()
 	File_shredstream_proto = out.File
