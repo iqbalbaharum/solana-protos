@@ -436,7 +436,7 @@ func (x *SubscribeParsedRequest) GetFilter() string {
 type ParsedTransaction struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Slot          uint64                 `protobuf:"varint,1,opt,name=slot,proto3" json:"slot,omitempty"`
-	Signature     []byte                 `protobuf:"bytes,2,opt,name=signature,proto3" json:"signature,omitempty"`
+	Signature     string                 `protobuf:"bytes,2,opt,name=signature,proto3" json:"signature,omitempty"`
 	Mint          string                 `protobuf:"bytes,3,opt,name=mint,proto3" json:"mint,omitempty"`
 	Signer        string                 `protobuf:"bytes,4,opt,name=signer,proto3" json:"signer,omitempty"`
 	TradeType     TradeType              `protobuf:"varint,5,opt,name=trade_type,json=tradeType,proto3,enum=shredstream.TradeType" json:"trade_type,omitempty"`
@@ -485,11 +485,11 @@ func (x *ParsedTransaction) GetSlot() uint64 {
 	return 0
 }
 
-func (x *ParsedTransaction) GetSignature() []byte {
+func (x *ParsedTransaction) GetSignature() string {
 	if x != nil {
 		return x.Signature
 	}
-	return nil
+	return ""
 }
 
 func (x *ParsedTransaction) GetMint() string {
@@ -620,7 +620,7 @@ const file_shredstream_proto_rawDesc = "" +
 	"\x06filter\x18\x01 \x01(\tR\x06filter\"\xb5\x02\n" +
 	"\x11ParsedTransaction\x12\x12\n" +
 	"\x04slot\x18\x01 \x01(\x04R\x04slot\x12\x1c\n" +
-	"\tsignature\x18\x02 \x01(\fR\tsignature\x12\x12\n" +
+	"\tsignature\x18\x02 \x01(\tR\tsignature\x12\x12\n" +
 	"\x04mint\x18\x03 \x01(\tR\x04mint\x12\x16\n" +
 	"\x06signer\x18\x04 \x01(\tR\x06signer\x125\n" +
 	"\n" +

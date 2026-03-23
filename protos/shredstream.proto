@@ -73,7 +73,7 @@ enum Origin {
 
 message ParsedTransaction {
   uint64 slot = 1;
-  bytes signature = 2;
+  string signature = 2;
   string mint = 3;
   string signer = 4;
   TradeType trade_type = 5;
